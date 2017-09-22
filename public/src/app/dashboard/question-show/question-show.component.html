@@ -1,0 +1,20 @@
+<button [routerLink]="['/browse']">Home</button>
+<button [routerLink]="['/question', question._id, 'new_answer']">Answer this Question</button>
+<button (click)="logout()">Log off</button>
+
+<br>
+<br>
+
+<h1>{{ question.question }}</h1>
+<p>{{ question.description }}</p>
+
+<div *ngFor="let x of answers">
+    <div *ngIf="x.question == question._id">
+        <p>{{ x.user }} says:</p>
+        <p>{{ x.answer }}</p>
+
+        <p>{{ answer.likes }} Likes!</p>
+        <button (click)="increaseLikes()">Like</button>
+        <hr>
+    </div>
+</div>

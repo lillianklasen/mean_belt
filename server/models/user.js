@@ -1,33 +1,21 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcryptjs');
 
 var UserSchema = new mongoose.Schema({
-    first_name: {
+    name: {
         type: String,
-        required: [true, 'First name is required']
+        required: [true, 'Name is required']
     },
-    last_name: {
-        type: String,
-        required: [true, 'Last name is required']
-    },
-    email: {
-        type: String,
-        required: [true, 'Email is required'],
-        index: {unique: true}
-    },
-    password: {
-        type: String,
-        required: [true, 'Password is required'],
-        minlength: [4, 'Password must be at least 16 characters']
-        },
-    password_confirm: {
-        type: String,
-        required: [true, 'Password is required']
-    },
-}, {timestamps: true });
 
-UserSchema.methods.authenticate = function(password){
-	return bcrypt.compareSync(password, this.password);
-}
+    questions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Question'
+    }],
+
+    answers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Answer'
+    }],
+
+}, {timestamps: true });
 
 var User = mongoose.model('User', UserSchema);

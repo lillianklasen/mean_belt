@@ -1,0 +1,18 @@
+<h1>Q&A</h1>
+
+<div>
+    <form (submit)="createUser()">
+        Name:
+        <input
+        type='text'
+        name='name'
+        [(ngModel)]="newUser.name">
+
+        <br>
+        <br>
+
+        <input type='submit' value='Enter'>
+    </form>
+</div>
+
+<p *ngFor="let error of errors">{{error}}</p>

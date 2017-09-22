@@ -1,5 +1,6 @@
 var Users = require('../controllers/users');
-var Bicycles = require('../controllers/bicycles');
+var Questions = require('../controllers/questions');
+var Answers = require('../controllers/answers');
 var path = require('path');
 
 module.exports = function(app){
@@ -8,11 +9,13 @@ module.exports = function(app){
     app.delete('/users', Users.logout);
     app.get('/session', Users.session);
 
-    app.get('/bicycles', Bicycles.index);
-	app.post('/bicycles', Bicycles.create);
-	app.get('/bicycles/:id', Bicycles.show);
-	app.put('/bicycles/:id', Bicycles.update);
-	app.delete('/bicycles/:id', Bicycles.destroy);
+    app.get('/questions', Questions.index);
+	app.post('/questions', Questions.create);
+	app.get('/questions/:id', Questions.show);
+
+    app.get('/answers', Answers.index);
+	app.post('/questions/:id/answers', Answers.create);
+	app.get('/answers/:id', Answers.show);
 
     app.all("*", (req, res) => {
         res.sendFile(path.resolve('./public/dist/index.html'));

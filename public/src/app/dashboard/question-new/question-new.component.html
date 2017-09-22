@@ -1,0 +1,29 @@
+<button [routerLink]="['/browse']">Home</button>
+<button (click)="logout()">Log off</button>
+
+<h1>New Question</h1>
+
+<form (submit)="createQuestion()">
+    Question:
+    <input
+    type='text'
+    name='title'
+    [(ngModel)]='newQuestion.question'>
+
+    <br>
+    <br>
+
+    Description (optional):
+    <input
+    type='text'
+    name='description'
+    [(ngModel)]='newQuestion.description'>
+
+    <br>
+    <br>
+
+    <input type='submit' value='Submit'>
+    <button [routerLink]="['/browse']">Cancel</button>
+</form>
+
+<p *ngFor="let error of errors">{{error}}</p>

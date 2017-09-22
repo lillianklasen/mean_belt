@@ -1,21 +1,8 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-var bcrypt = require('bcrypt');
 
 class UsersController {
     create(req, res) {
-        if(req.body.password != req.body.password_confirm){
-            return res.json({
-                errors: {
-                    password: {
-                        message: 'Passwords must match.'
-                    }
-                }
-            })
-        }
-
-        req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
-
         User.create(req.body, (err, user) => {
             if(err) {
                 return res.json(err);
@@ -26,12 +13,12 @@ class UsersController {
     }
 
     authenticateUser(req, res) {
-        User.findOne({email: req.body.email}, (err, user) => {
+        User.findOne({name: req.body.name}, (err, user) => {
 
             if(err){
                 return res.json(err);
             }
-            if(user && user.authenticate(req.body.password)) {
+            if(user) {
                 req.session.user = user._id;
                 return res.json(user);
             }
@@ -46,7 +33,7 @@ class UsersController {
     }
 
     session(req, res) {
-        if(req.session.user){
+        if(!req.session.user){
             return res.json({status: true});
         }
         User.findById(req.session.user, (err, user) => {

@@ -1,0 +1,30 @@
+<button [routerLink]="['/browse']">Home</button>
+<button [routerLink]="['/question', question._id]">Go Back to Question</button>
+<button (click)="logout()">Log off</button>
+
+<h1>{{ question.question }}</h1>
+
+<form (submit)="createAnswer()">
+    Answer:
+    <input
+    type='text'
+    name='answer'
+    [(ngModel)]='newAnswer.answer'>
+
+    <br>
+    <br>
+
+    Supporting details for your answer (optional):
+    <input
+    type='text'
+    name='details'
+    [(ngModel)]='newAnswer.details'>
+
+    <br>
+    <br>
+
+    <input type='submit' value='Submit'>
+    <button [routerLink]="['/question', question._id]">Cancel</button>
+</form>
+
+<p *ngFor="let error of answerErrors">{{error}}</p>
